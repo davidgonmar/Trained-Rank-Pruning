@@ -111,7 +111,7 @@ best_acc = 0  # best test accuracy
 period = args.decouple_period
 assert period >= 1
 
-DEBUG = False # debug option for singular value
+DEBUG = True # debug option for singular value
 
 # set decouple method
 if args.type == 'VH':
@@ -526,7 +526,7 @@ def train(trainloader, model, criterion, optimizer, look_up_table, epoch, use_cu
         data_time.update(time.time() - end)
 
         if use_cuda:
-            inputs, targets = inputs.cuda(), targets.cuda(async=True)
+            inputs, targets = inputs.cuda(), targets.cuda(non_blocking=True)
 
         # compute output
         outputs = model(inputs)
